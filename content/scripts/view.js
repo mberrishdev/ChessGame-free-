@@ -14,7 +14,7 @@ $(document).ready(function () {
 
     $("td").click(function () {
 
-        
+
         onClickFunction(this.id);
         //console.log(board.board)
 
@@ -28,7 +28,7 @@ function onClickFunction(id) {
     if (document.getElementById(id).firstChild != null) {
         var pieceColor = document.getElementById(id).firstChild.alt.split(Underscore)[0];
     }
-    
+
     //console.log(activePieceColor)
     activePieceTimer = false;
 
@@ -43,7 +43,7 @@ function onClickFunction(id) {
         pieceColor = document.getElementById(startId).firstChild.alt.split(Underscore)[0];
 
         returnBoard = mainFunction(startId, pieceName, pieceColor);
-        
+
 
         if (activePieceColor == ColorBlack) {
             activePieceColor = ColorWhite;
@@ -65,7 +65,7 @@ function onClickFunction(id) {
             return 0;
 
         }
-        
+
 
     }
 
@@ -94,7 +94,7 @@ function onClickFunction(id) {
         } else if (activePieceColor == ColorWhite) {
             activePieceColor = ColorBlack;
         }
-        
+
     } else if (checker == 0 && document.getElementById(id).firstChild != null && activePieceColor == pieceColor) {
 
         returnBoard = mainFunction(id, document.getElementById(id).firstChild.alt.split(Underscore)[1], document.getElementById(id).firstChild.alt.split(Underscore)[0]);
@@ -114,14 +114,14 @@ function onClickFunction(id) {
         } else if (activePieceColor == ColorWhite) {
             activePieceColor = ColorBlack;
         }
-       
+
     }
 
-//    if (activePieceTimer  == true) {
-//         timer();
-//     } else {
-//         clearInterval(countDown);
-//     }
+    //    if (activePieceTimer  == true) {
+    //         timer();
+    //     } else {
+    //         clearInterval(countDown);
+    //     }
 
 }
 
@@ -395,7 +395,7 @@ $(function () {
     $("#player2").css({ 'top': '821.5px', "left": "150px" });
 });
 
-function blackPlayerView(){
+function blackPlayerView() {
     $(".table").css({ "transform": "rotate(180deg)" });
     $("td").css({ "transform": "rotate(180deg)" });
     $("th").css({ "transform": "rotate(180deg)" });
@@ -405,7 +405,7 @@ function blackPlayerView(){
     $("#player1").css({ 'top': '821.5px', "left": "150px" });
 }
 
-function whitePlayerView(){
+function whitePlayerView() {
     $(".table").css({ "transform": "rotate(0deg)" });
     $("td").css({ "transform": "rotate(0deg)" });
     $("th").css({ "transform": "rotate(0deg)" });

@@ -33,14 +33,14 @@ function createBoard(boardHorizontalSize, boardverticalSize) {
 
         //var pieceWhereGo = [pieceNameStart, pieceColorStart, positionStart]
 
-        
-        board.board[vertical - 1][horizontal - 1] =  new ConnectionArray[pieceNameStart](pieceNameStart, pieceColorStart, horizontal, vertical);
+
+        board.board[vertical - 1][horizontal - 1] = new ConnectionArray[pieceNameStart](pieceNameStart, pieceColorStart, horizontal, vertical);
         //console.log(board.board[vertical - 1][horizontal - 1].name)
     }
-   // console.log(board.board)
+    // console.log(board.board)
 
     addPieceOnBoard(board.board);
-    
+
 
 }
 
@@ -51,7 +51,7 @@ function mainFunction(startId, name, color) {
     var vertical = Number(startId.split(":")[1]);
 
     var returnBoard = createPieceClass(name, horizontal, vertical, color);
-    
+
     return returnBoard;
 
 }
@@ -64,11 +64,11 @@ function createPieceClass(pieceName, horizontalPos, verticalPos, pieceColor) {
         // let exactPiece = new ConnectionArray[pieceName](pieceName, pieceColor, horizontalPos, verticalPos);
 
         // var returnBoard = exactPiece.special();
-        var returnBoard = board.board[ verticalPos - 1][ horizontalPos - 1].special();
+        var returnBoard = board.board[verticalPos - 1][horizontalPos - 1].special();
         //kingDAngerous();
         //console.log(returnBoard);
     }
-    
+
     return returnBoard;
 
 }

@@ -60,7 +60,7 @@ class Piece {
                     possibleMoveArray.push([horizontal + Colon + vertical, Green]);
 
                 } else if (this.isEnemyPiece(horizontal, vertical, pieceColor)) {
-                    
+
                     possibleMoveArray.push([horizontal + Colon + vertical, Red]);
                     return possibleMoveArray;
 
@@ -227,10 +227,10 @@ function kingDAngerous() {
 
                 horizontalPos = Number(boardArray[index][verticalIndex].horizontalCordinate);
                 verticalPos = Number(boardArray[index][verticalIndex].verticalCordinate);
-                
+
                 //console.log(boardArray[index][verticalIndex])
                 //var x = new ConnectionArray[boardArray[index][verticalIndex][0]](boardArray[index][verticalIndex][0], boardArray[index][verticalIndex][1], horizontalPos, verticalPos)
-                var WhereAllPieceCanGo = board.board[ verticalPos - 1][ horizontalPos - 1].special() 
+                var WhereAllPieceCanGo = board.board[verticalPos - 1][horizontalPos - 1].special()
                 console.log(WhereAllPieceCanGo[3])
                 clearArray(whereGoArray)
                 //WhereAllPieceCanGo=0;
