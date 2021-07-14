@@ -115,7 +115,7 @@ class Piece {
 
         while (vertical <= 8 && horizontal <= 8
             && vertical > 0 && horizontal > 0) {
-
+                
             step++;
             horizontal += horizontalstep
             vertical += verticalstep
@@ -129,23 +129,23 @@ class Piece {
 
                     possibleMoveArray.push([horizontal + Colon + vertical, Green]);
 
-                    if (horizontal - 1 > 0) {
+                    if (horizontal - 1 > 0 && step == 1) {
                         if (this.isEnemyPiece(horizontal - 1, vertical, pieceColor)) {
                             possibleMoveArray.push([(horizontal - 1) + Colon + vertical, Red]);
                         }
                     }
-                    if (horizontal + 1 < 9) {
+                    if (horizontal + 1 < 9 && step == 1) {
                         if (this.isEnemyPiece(horizontal + 1, vertical, pieceColor)) {
                             possibleMoveArray.push([(horizontal + 1) + Colon + vertical, Red]);
                         }
                     }
                 } else if (true) {
-                    if (horizontal - 1 > 0) {
+                    if (horizontal - 1 > 0 && step == 1) {
                         if (this.isEnemyPiece(horizontal - 1, vertical, pieceColor)) {
                             possibleMoveArray.push([(horizontal - 1) + Colon + vertical, Red]);
                         }
                     }
-                    if (horizontal + 1 < 9) {
+                    if (horizontal + 1 < 9 && step == 1) {
                         if (this.isEnemyPiece(horizontal + 1, vertical, pieceColor)) {
                             possibleMoveArray.push([(horizontal + 1) + Colon + vertical, Red]);
                         }
