@@ -396,8 +396,8 @@ $(function () {
 
 
 $(function () {
-    $("#image1").css({ 'top': '22.5px', "left": "10px" });
-    $("#player1").css({ 'top': '10.5px', "left": "50px" });
+    $("#image1").css({ 'top': '12.5px', "left": "10px" });
+    $("#player1").css({ 'top': '0.5px', "left": "50px" });
     $("#image2").css({ 'top': '382.5px', "left": "10px" });
     $("#player2").css({ 'top': '370.5px', "left": "50px" });
 });

@@ -115,7 +115,7 @@ class Piece {
 
         while (vertical <= 8 && horizontal <= 8
             && vertical > 0 && horizontal > 0) {
-                
+
             step++;
             horizontal += horizontalstep
             vertical += verticalstep
@@ -159,6 +159,19 @@ class Piece {
         return possibleMoveArray;
     }
 
+    kingAndRook(horizontal, vertical, checker, direction) {
+        console.log(quantity)
+        if (this.isEmpty(horizontal + direction * 1, vertical) && this.isEmpty(horizontal + direction * 2, vertical)) {
+            if (checker == true && this.isEmpty(horizontal + direction * 3, vertical)) {
+                possibleMoveArray.push([horizontal + direction * 3 + Colon + vertical, Green]);
+            } else {
+                possibleMoveArray.push([horizontal + direction * 2 + Colon + vertical, Green]);
+            }
+        }
+
+        return possibleMoveArray;
+    }
+
     isEmpty(horizontal, vertical) {
 
         if (this.board[vertical - 1][horizontal - 1] == 0) {
@@ -183,39 +196,7 @@ class Piece {
         }
 
     }
-    whereKingCanGo(horizontal, vertical, horizontalstep, verticalstep, maxstep, pieceColor) {
 
-        while (vertical <= 8 && horizontal <= 8
-            && vertical > 0 && horizontal > 0) {
-
-            step++;
-            horizontal += horizontalstep
-            vertical += verticalstep
-
-            if (vertical <= 8 && horizontal <= 8
-                && vertical > 0 && horizontal > 0
-                && horizontalstep != horizontal && verticalstep != vertical && step <= maxstep) {
-
-                if (this.isEmpty(horizontal, vertical)) {
-
-                    possibleMoveArray.push([horizontal + Colon + vertical, Green]);
-
-                } else if (this.isEnemyPiece(horizontal, vertical, pieceColor)) {
-
-                    possibleMoveArray.push([horizontal + Colon + vertical, Red]);
-                    return possibleMoveArray;
-
-                } else if (this.isNotEnemyPiece(horizontal, vertical, pieceColor)) {
-                    break;
-                }
-            }
-        }
-
-        step = 0;
-
-
-        return possibleMoveArray;
-    }
 }
 
 
@@ -308,6 +289,24 @@ class King extends Piece {
 
         whereGoArray = [[0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0], [-1, 1]]
         maxLoop = 1;
+        console.log(possibleMoveArray[1], this.board[0][7].name)
+
+        if (possibleMoveArray[1] == "5:1" && this.board[0][7].name == "Rook") {
+            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, false, 1, quantityWhite);
+
+        }
+
+        if (possibleMoveArray[1] == "5:1" && this.board[0][0].name == "Rook") {
+            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, true, -1, quantityWhite);
+        }
+
+        if (possibleMoveArray[1] == "5:8" && this.board[7][7].name == "Rook") {
+            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, false, 1, quantityBlack);
+        }
+
+        if (possibleMoveArray[1] == "5:8" && this.board[0][0].name == "Rook") {
+            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, true, -1, quantityBlack);
+        }
 
         for (var counter = 0; counter < whereGoArray.length; counter++) {
             this.wherePieceCanGo(this.horizontalCordinate, this.verticalCordinate, whereGoArray[counter][0], whereGoArray[counter][1], maxLoop, this.color);
