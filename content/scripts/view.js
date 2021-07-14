@@ -7,6 +7,7 @@ var activePieceTimer = 0;
 var activePieceColor = ColorWhite;
 var pieceColor = ColorWhite;
 var view = ColorWhite;
+var x;
 
 
 $(document).ready(function () {
@@ -17,7 +18,7 @@ $(document).ready(function () {
 
 
         onClickFunction(this.id);
-        //console.log(board.board)
+        console.log("a")
 
 
     });
@@ -25,6 +26,7 @@ $(document).ready(function () {
 
 
 function onClickFunction(id) {
+
     //console.log(possibleMoveArray)
     if (document.getElementById(id).firstChild != null) {
         var pieceColor = document.getElementById(id).firstChild.alt.split(Underscore)[0];
@@ -80,19 +82,19 @@ function onClickFunction(id) {
 
 
             if (returnBoard[index].indexOf(NoSpace + concatenate(horizontal, Colon, vertical) + NoSpace) == 0) {
-                if (previousId == "5:1" && id == "7:1"){
+                if (previousId == "5:1" && id == "7:1") {
                     makeMove("8:1", "6:1");
                 }
-                if (previousId == "5:1" && id == "3:1"){
+                if (previousId == "5:1" && id == "3:1") {
                     makeMove("1:1", "4:1");
                 }
-                if (previousId == "5:8" && id == "7:8"){
+                if (previousId == "5:8" && id == "7:8") {
                     makeMove("8:8", "6:8");
                 }
-                if (previousId == "5:8" && id == "3:8"){
+                if (previousId == "5:8" && id == "3:8") {
                     makeMove("1:8", "4:8");
                 }
-                
+
                 makeMove(previousId, id);
                 checker = 0;
 
@@ -287,7 +289,7 @@ function drawPieceOnBoard(positionStart, pieceNameStart, pieceColorStart) {
 
 function pieceMove(possibleMoveArray) {
 
-
+    console.log(possibleMoveArray)
     for (var cheker = 1; cheker < possibleMoveArray.length; cheker++) {
         if (possibleMoveArray[cheker] != 0 && possibleMoveArray[cheker] != undefined) {
 
@@ -379,12 +381,12 @@ function animate(starting, ending, piece, speed) {
     if (view == ColorWhite) {
         var lengthTop = endCoordinateTop - startCoordinateTop;
         var lengthLeft = endCoordinateLeft - startCoordinateLeft;
-    } else if (view == ColorBlack){
+    } else if (view == ColorBlack) {
         var lengthTop = -endCoordinateTop + startCoordinateTop;
         var lengthLeft = -endCoordinateLeft + startCoordinateLeft;
     }
 
-    
+
     //console.log(startCoordinateTop,startCoordinateLeft,endCoordinateTop,endCoordinateLeft,lengthTop,lengthLeft,view)
     boardColorReset();
 

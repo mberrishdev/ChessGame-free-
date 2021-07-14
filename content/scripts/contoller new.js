@@ -65,7 +65,7 @@ function createPieceClass(pieceName, horizontalPos, verticalPos, pieceColor) {
 
         // var returnBoard = exactPiece.special();
         var returnBoard = board.board[verticalPos - 1][horizontalPos - 1].special();
-        //kingDAngerous();
+        
         //console.log(returnBoard);
     }
 

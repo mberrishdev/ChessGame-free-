@@ -3,11 +3,13 @@ var possibleMoveArray = [];
 var moveArray = [];
 var whereGoArray = [];
 var dangerousBoard = [];
+var whereAllPieceCanGo = []
 var maxLoop;
 var maxstep;
 var horizontalstep;
 var verticalstep;
 var array = [];
+
 
 class Board {
 
@@ -43,6 +45,7 @@ class Piece {
     }
 
     wherePieceCanGo(horizontal, vertical, horizontalstep, verticalstep, maxstep, pieceColor) {
+        
 
         while (vertical <= 8 && horizontal <= 8
             && vertical > 0 && horizontal > 0) {
@@ -160,7 +163,7 @@ class Piece {
     }
 
     kingAndRook(horizontal, vertical, checker, direction) {
-        console.log(quantity)
+
         if (this.isEmpty(horizontal + direction * 1, vertical) && this.isEmpty(horizontal + direction * 2, vertical)) {
             if (checker == true && this.isEmpty(horizontal + direction * 3, vertical)) {
                 possibleMoveArray.push([horizontal + direction * 3 + Colon + vertical, Green]);
@@ -196,32 +199,6 @@ class Piece {
         }
 
     }
-
-}
-
-
-function kingDAngerous() {
-    for (var index = 0; index < 8; index++) {
-        for (var verticalIndex = 0; verticalIndex < 8; verticalIndex++) {
-            //console.log(boardArray)
-            if (boardArray[index][verticalIndex] != 0) {
-
-                horizontalPos = Number(boardArray[index][verticalIndex].horizontalCordinate);
-                verticalPos = Number(boardArray[index][verticalIndex].verticalCordinate);
-
-                //console.log(boardArray[index][verticalIndex])
-                //var x = new ConnectionArray[boardArray[index][verticalIndex][0]](boardArray[index][verticalIndex][0], boardArray[index][verticalIndex][1], horizontalPos, verticalPos)
-                var WhereAllPieceCanGo = board.board[verticalPos - 1][horizontalPos - 1].special()
-                console.log(WhereAllPieceCanGo[3])
-                clearArray(whereGoArray)
-                //WhereAllPieceCanGo=0;
-                // dangerousBoard.push(x.special())
-
-
-            }
-        }
-    }
-    console.log(dangerousBoard)
 }
 
 
@@ -282,30 +259,30 @@ class King extends Piece {
     }
 
     special() {
-
+        //console.log(possibleMoveArray)
         possibleMoveArray[0] = concatenate(this.name, Colon, this.color);
         possibleMoveArray[1] = concatenate(this.horizontalCordinate, Colon, this.verticalCordinate);
 
 
         whereGoArray = [[0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0], [-1, 1]]
         maxLoop = 1;
-        console.log(possibleMoveArray[1], this.board[0][7].name)
+
 
         if (possibleMoveArray[1] == "5:1" && this.board[0][7].name == "Rook") {
-            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, false, 1, quantityWhite);
+            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, false, 1);
 
         }
 
         if (possibleMoveArray[1] == "5:1" && this.board[0][0].name == "Rook") {
-            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, true, -1, quantityWhite);
+            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, true, -1);
         }
 
         if (possibleMoveArray[1] == "5:8" && this.board[7][7].name == "Rook") {
-            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, false, 1, quantityBlack);
+            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, false, 1);
         }
 
         if (possibleMoveArray[1] == "5:8" && this.board[0][0].name == "Rook") {
-            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, true, -1, quantityBlack);
+            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, true, -1);
         }
 
         for (var counter = 0; counter < whereGoArray.length; counter++) {
