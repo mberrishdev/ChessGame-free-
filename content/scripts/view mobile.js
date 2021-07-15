@@ -6,6 +6,7 @@ var activePiece = false;
 var activePieceTimer = 0;
 var activePieceColor = ColorWhite;
 var pieceColor = ColorWhite;
+var view = ColorWhite;
 
 
 $(document).ready(function () {
@@ -24,6 +25,7 @@ $(document).ready(function () {
 
 
 function onClickFunction(id) {
+
     //console.log(possibleMoveArray)
     if (document.getElementById(id).firstChild != null) {
         var pieceColor = document.getElementById(id).firstChild.alt.split(Underscore)[0];
@@ -79,6 +81,18 @@ function onClickFunction(id) {
 
 
             if (returnBoard[index].indexOf(NoSpace + concatenate(horizontal, Colon, vertical) + NoSpace) == 0) {
+                if (previousId == "5:1" && id == "7:1") {
+                    makeMove("8:1", "6:1");
+                }
+                if (previousId == "5:1" && id == "3:1") {
+                    makeMove("1:1", "4:1");
+                }
+                if (previousId == "5:8" && id == "7:8") {
+                    makeMove("8:8", "6:8");
+                }
+                if (previousId == "5:8" && id == "3:8") {
+                    makeMove("1:8", "4:8");
+                }
 
                 makeMove(previousId, id);
                 checker = 0;
@@ -268,7 +282,7 @@ function drawPieceOnBoard(positionStart, pieceNameStart, pieceColorStart) {
     childElement.id = "img";
     //console.log(childElement)
     parentElement.appendChild(childElement);
-    // $(Img).css({ 'width': '80px', "height": "80px" });
+    $(Img).css({ 'width': '30px', "height": "30px" });
 }
 
 
@@ -353,7 +367,6 @@ function makeMove(startId, toId) {
 
 }
 
-
 function animate(starting, ending, piece, speed) {
 
     var starting = document.getElementById(starting);
@@ -363,10 +376,16 @@ function animate(starting, ending, piece, speed) {
     var endCoordinateTop = ending.offsetTop;
     var startCoordinateLeft = starting.offsetLeft;
     var endCoordinateLeft = ending.offsetLeft;
+    if (view == ColorWhite) {
+        var lengthTop = endCoordinateTop - startCoordinateTop;
+        var lengthLeft = endCoordinateLeft - startCoordinateLeft;
+    } else if (view == ColorBlack) {
+        var lengthTop = -endCoordinateTop + startCoordinateTop;
+        var lengthLeft = -endCoordinateLeft + startCoordinateLeft;
+    }
 
-    var lengthTop = endCoordinateTop - startCoordinateTop;
-    var lengthLeft = endCoordinateLeft - startCoordinateLeft;
 
+    //console.log(startCoordinateTop,startCoordinateLeft,endCoordinateTop,endCoordinateLeft,lengthTop,lengthLeft,view)
     boardColorReset();
 
     $(piece).css("position", "relative")
@@ -410,6 +429,7 @@ function blackPlayerView() {
     $("#player2").css({ 'top': '10.5px', "left": "50px" });
     $("#image1").css({ 'top': '382.5px', "left": "10px" });
     $("#player1").css({ 'top': '370.5px', "left": "50px" });
+    view = ColorBlack;
 }
 
 function whitePlayerView() {
@@ -420,4 +440,5 @@ function whitePlayerView() {
     $("#player1").css({ 'top': '10.5px', "left": "50px" });
     $("#image2").css({ 'top': '382.5px', "left": "10px" });
     $("#player2").css({ 'top': '370.5px', "left": "50px" });
+    view = ColorWhite;
 }
