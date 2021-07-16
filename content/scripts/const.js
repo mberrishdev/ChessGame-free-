@@ -26,7 +26,7 @@ const HorizontalConst = "horizontal";
 const VerticalConst = "vertical";
 
 const Img = "img";
-const Location = "../content/images/";
+const Location = "../Content/Images/";
 const Png = ".png";
 
 const Colon = ":";
