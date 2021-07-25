@@ -3,13 +3,16 @@ var possibleMoveArray = [];
 var moveArray = [];
 var whereGoArray = [];
 var dangerousBoard = [];
-var whereAllPieceCanGo = []
+var whereAllPieceCanGo = [];
+var whereKingCanGoArray = [];
 var maxLoop;
 var maxstep;
 var horizontalstep;
 var verticalstep;
 var array = [];
 
+
+var whereGoArrayKing = [];
 
 class Board {
 
@@ -58,11 +61,11 @@ class Piece extends Board {
 
                 if (this.isEmpty(horizontal, vertical)) {
 
-                    possibleMoveArray.push([horizontal + Colon + vertical, Green]);
+                    possibleMoveArray.push([horizontal + Colon + vertical, Green, 0]);
 
                 } else if (this.isEnemyPiece(horizontal, vertical, pieceColor)) {
 
-                    possibleMoveArray.push([horizontal + Colon + vertical, Red]);
+                    possibleMoveArray.push([horizontal + Colon + vertical, Red, 0]);
                     return possibleMoveArray;
 
                 } else if (this.isNotEnemyPiece(horizontal, vertical, pieceColor)) {
@@ -163,27 +166,27 @@ class Pawn extends Piece {
 
                 if (this.isEmpty(horizontal, vertical)) {
 
-                    possibleMoveArray.push([horizontal + Colon + vertical, Green]);
+                    possibleMoveArray.push([horizontal + Colon + vertical, Green, NotDanger]);
 
                     if (horizontal - 1 > 0 && step == 1) {
                         if (this.isEnemyPiece(horizontal - 1, vertical, pieceColor)) {
-                            possibleMoveArray.push([(horizontal - 1) + Colon + vertical, Red]);
+                            possibleMoveArray.push([(horizontal - 1) + Colon + vertical, Red, Danger]);
                         }
                     }
                     if (horizontal + 1 < 9 && step == 1) {
                         if (this.isEnemyPiece(horizontal + 1, vertical, pieceColor)) {
-                            possibleMoveArray.push([(horizontal + 1) + Colon + vertical, Red]);
+                            possibleMoveArray.push([(horizontal + 1) + Colon + vertical, Red, Danger]);
                         }
                     }
                 } else if (true) {
                     if (horizontal - 1 > 0 && step == 1) {
                         if (this.isEnemyPiece(horizontal - 1, vertical, pieceColor)) {
-                            possibleMoveArray.push([(horizontal - 1) + Colon + vertical, Red]);
+                            possibleMoveArray.push([(horizontal - 1) + Colon + vertical, Red, Danger]);
                         }
                     }
                     if (horizontal + 1 < 9 && step == 1) {
                         if (this.isEnemyPiece(horizontal + 1, vertical, pieceColor)) {
-                            possibleMoveArray.push([(horizontal + 1) + Colon + vertical, Red]);
+                            possibleMoveArray.push([(horizontal + 1) + Colon + vertical, Red, Danger]);
                         }
                     }
                 }
@@ -209,37 +212,111 @@ class King extends Piece {
     }
 
     special() {
-        //console.log(possibleMoveArray)
         possibleMoveArray[0] = concatenate(this.name, Colon, this.color);
         possibleMoveArray[1] = concatenate(this.horizontalCordinate, Colon, this.verticalCordinate);
 
 
-        whereGoArray = [[0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0], [-1, 1]]
+        whereGoArrayKing = [[0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0], [-1, 1]]
         maxLoop = 1;
 
+        console.log(whereGoArrayKing.length)
 
-        if (possibleMoveArray[1] == "5:1" && this.board[0][7].name == "Rook") {
-            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, false, 1);
+        // if (possibleMoveArray[1] == "5:1" && this.board[0][7].name == "Rook") {
+        //     this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, false, 1);
 
+        // }
+
+        // if (possibleMoveArray[1] == "5:1" && this.board[0][0].name == "Rook") {
+        //     this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, true, -1);
+        // }
+
+        // if (possibleMoveArray[1] == "5:8" && this.board[7][7].name == "Rook") {
+        //     this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, false, 1);
+        // }
+
+        // if (possibleMoveArray[1] == "5:8" && this.board[0][0].name == "Rook") {
+        //     this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, true, -1);
+        // }
+
+        this.kingDangerous();
+        return whereKingCanGoArray;
+    }
+    kingAndRook(horizontal, vertical, checker, direction) {
+        if (this.isEmpty(horizontal + direction * 1, vertical) && this.isEmpty(horizontal + direction * 2, vertical)) {
+            if (checker == true && this.isEmpty(horizontal + direction * 2, vertical)) {
+                whereKingCanGoArray[2][0] = horizontal + ":" + vertical;
+                whereKingCanGoArray[2][1] = "Green";
+            }
+            else {
+                whereKingCanGoArray[2][0] = horizontal + ":" + vertical;
+                whereKingCanGoArray[2][1] = "Green";
+            }
         }
 
-        if (possibleMoveArray[1] == "5:1" && this.board[0][0].name == "Rook") {
-            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, true, -1);
+        return whereKingCanGoArray;
+    }
+    whereKingCanGo(horizontal, vertical, whereGoArrayKing, maxstep, pieceColor) {
+        // whereKingCanGoArray[0] = concatenate(this.name, Colon, this.color);
+        // whereKingCanGoArray[1] = concatenate(this.horizontalCordinate, Colon, this.verticalCordinate);
+
+        var horizontalCor = horizontal;
+        var verticalCor = vertical;
+        for (var index = 0; index < 8; index++) {
+            //console.log(whereGoArrayKing[index]);
+            horizontal += whereGoArrayKing[index][0];
+            vertical += whereGoArrayKing[index][1];
+            if (vertical <= 8 && horizontal <= 8
+                && vertical > 0 && horizontal > 0
+                && horizontalstep != horizontal && verticalstep != vertical) {
+
+                if (this.isEmpty(horizontal, vertical)) {
+
+                    whereKingCanGoArray.push([horizontal + Colon + vertical, Green]);
+
+                } else if (this.isEnemyPiece(horizontal, vertical, pieceColor)) {
+
+                    whereKingCanGoArray.push([horizontal + Colon + vertical, Red,]);
+                }
+            }
+            horizontal = horizontalCor;
+            vertical = verticalCor;
+        }
+        console.log(whereKingCanGoArray)
+        return whereKingCanGoArray;
+
+    }
+    kingDangerous() {
+        for (var columnIndex = 0; columnIndex < 8; columnIndex++) {
+
+            for (var rowIndex = 0; rowIndex < 8; rowIndex++) {
+
+
+                if (board.board[columnIndex][rowIndex].name != "King") {
+
+                    if (board.board[columnIndex][rowIndex] != 0 && board.board[columnIndex][rowIndex].color != this.color) {
+                        board.board[columnIndex][rowIndex].special()
+                    }
+                }
+            }
         }
 
-        if (possibleMoveArray[1] == "5:8" && this.board[7][7].name == "Rook") {
-            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, false, 1);
-        }
+        this.whereKingCanGo(this.horizontalCordinate, this.verticalCordinate, whereGoArrayKing, maxLoop, this.color);
 
-        if (possibleMoveArray[1] == "5:8" && this.board[0][0].name == "Rook") {
-            this.kingAndRook(this.horizontalCordinate, this.verticalCordinate, true, -1);
-        }
+        for (var index = 0; index < whereKingCanGoArray.length; index++) {
+            for (var Jindex in possibleMoveArray) {
+                //console.log(possibleMoveArray[index][0])
 
-        for (var counter = 0; counter < whereGoArray.length; counter++) {
-            this.wherePieceCanGo(this.horizontalCordinate, this.verticalCordinate, whereGoArray[counter][0], whereGoArray[counter][1], maxLoop, this.color);
-        }
+                if (whereKingCanGoArray[index][0] == possibleMoveArray[Jindex][0]) {
+                    //console.log(whereKingCanGoArray[index][0], possibleMoveArray[Jindex][2])
+                    if (possibleMoveArray[Jindex][2] == Danger) {
+                        whereKingCanGoArray[index] = 0;
+                        break;
+                    }
+                }
 
-        return possibleMoveArray
+            }
+
+        }
     }
 }
 
@@ -367,10 +444,10 @@ class Knight extends Piece {
                 if (this.isEmpty(horizontal, vertical)) {
 
 
-                    possibleMoveArray.push([horizontal + Colon + vertical, Green]);
+                    possibleMoveArray.push([horizontal + Colon + vertical, Green, 0]);
 
                 } else if (this.isEnemyPiece(horizontal, vertical, pieceColor)) {
-                    possibleMoveArray.push([horizontal + Colon + vertical, Red]);
+                    possibleMoveArray.push([horizontal + Colon + vertical, Red, 0]);
 
 
                 } else {

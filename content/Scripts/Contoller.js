@@ -34,7 +34,6 @@ function createBoard(boardHorizontalSize, boardverticalSize) {
 
         board.board[vertical - 1][horizontal - 1] = new ConnectionArray[pieceNameStart](pieceNameStart, pieceColorStart, horizontal, vertical);
     }
-
     addPieceOnBoard(board.board);
 }
 
@@ -54,7 +53,6 @@ function mainFunction(startId, name, color) {
 function createPieceClass(pieceName, horizontalPos, verticalPos, pieceColor) {
 
     if (pieceName != NoSpace && pieceColor != NoSpace && horizontalPos > 0 && verticalPos > 0) {
-
         var returnBoard = board.board[verticalPos - 1][horizontalPos - 1].special();
     }
 

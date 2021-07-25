@@ -18,7 +18,7 @@ $(document).ready(function () {
 
 
         onClickFunction(this.id);
-        console.log("a")
+        //console.log("a")
 
 
     });
@@ -38,7 +38,6 @@ function onClickFunction(id) {
     var horizontal = Number(id.split(Colon)[0]);
     var vertical = Number(id.split(Colon)[1]);
     var counter = 0;
-
 
 
     if (checker == 1 && activePiece == true) {
@@ -80,7 +79,7 @@ function onClickFunction(id) {
 
         for (var index = 2; index < returnBoard.length; index++) {
 
-
+            //console.log(returnBoard[index])
             if (returnBoard[index].indexOf(NoSpace + concatenate(horizontal, Colon, vertical) + NoSpace) == 0) {
                 if (previousId == "5:1" && id == "7:1") {
                     makeMove("8:1", "6:1");
@@ -289,18 +288,19 @@ function drawPieceOnBoard(positionStart, pieceNameStart, pieceColorStart) {
 
 function pieceMove(possibleMoveArray) {
 
-    console.log(possibleMoveArray)
+    //console.log(possibleMoveArray)
     for (var cheker = 1; cheker < possibleMoveArray.length; cheker++) {
+        console.log(possibleMoveArray[cheker])
         if (possibleMoveArray[cheker] != 0 && possibleMoveArray[cheker] != undefined) {
 
             var horizontal = possibleMoveArray[cheker][0].split(Colon)[0];
             var vertical = possibleMoveArray[cheker][0].split(Colon)[1];
 
-            if (cheker == 1) {
-                changeColor(horizontal, vertical, Yellow);
-                // addPiece(horizontal,vertical,pieceType,pieceColor)
-                continue;
-            }
+            // if (cheker == 1) {
+            //     changeColor(horizontal, vertical, Yellow);
+            //     // addPiece(horizontal,vertical,pieceType,pieceColor)
+            //     continue;
+            // }
             var color = possibleMoveArray[cheker][1]
             //console.log(possibleMoveArray[cheker].split(" color:")[1])
             changeColor(horizontal, vertical, color)

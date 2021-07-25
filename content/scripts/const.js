@@ -64,3 +64,8 @@ const Normal = "normal";
 const Unusual = "unusual";
 
 const AnimationSpeed = 450;
+
+const Danger ="danger";
+const NotDanger = "notDanger";
+const Color ="color";
+const NotColor = "notColor";
