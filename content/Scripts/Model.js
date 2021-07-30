@@ -294,6 +294,7 @@ class King extends Piece {
                 if (board.board[columnIndex][rowIndex].name != "King") {
 
                     if (board.board[columnIndex][rowIndex] != 0 && board.board[columnIndex][rowIndex].color != this.color) {
+                        console.log(board.board[columnIndex][rowIndex])
                         board.board[columnIndex][rowIndex].special()
                     }
                 }
